@@ -25,6 +25,8 @@ from functions.ai_task_functions import (
 def register_all_functions():
     """注册所有功能函数"""
     
+    # 暂时注释掉常规Todo管理功能，只使用AI任务系统
+    """
     # Todo管理功能
     function_registry.register(
         "add_todo",
@@ -166,6 +168,7 @@ def register_all_functions():
         },
         ["todos_json"]
     )
+    """
     
     # 林晚晴的AI任务管理系统
     function_registry.register(

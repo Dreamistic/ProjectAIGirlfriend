@@ -3,8 +3,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).parent.parent
 
-AI_MODEL = "claude-sonnet-4-20250514"  # 手动修改为 claude-opus-4-1-20250805 用于正式使用
-#AI_MODEL = "claude-opus-4-1-20250805"
+#AI_MODEL = "claude-sonnet-4-20250514"  # 手动修改为 claude-opus-4-1-20250805 用于正式使用
+AI_MODEL = "claude-opus-4-1-20250805"
 ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
 
 SYSTEM_PROMPT_PATH = BASE_DIR / "config" / "system_prompt.xml"

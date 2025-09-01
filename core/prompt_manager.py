@@ -134,30 +134,28 @@ class SystemPromptManager:
         if active_todos:
             # 构建活跃任务的XML内容  
             active_todos_content = "<my_current_tasks>\n"
-            active_todos_content += "我（林晚晴）当前正在为主人执行的任务:\n"
+            active_todos_content += "执行中的任务:\n"
             
             for todo in active_todos:
-                active_todos_content += f"• {todo['content']} (我的进度: {todo['progress']}%)\n"
+                status_text = "[进行中]" if todo['status'] == 'in_progress' else f"[{todo['status']}]"
+                active_todos_content += f"• {status_text} {todo['content']}\n"
+                active_todos_content += f"  进度: {todo['progress']}%\n"
                 
                 # 添加未完成的子任务
                 if todo['subtasks']:
                     pending_subtasks = [st for st in todo['subtasks'] if not st['completed']]
                     if pending_subtasks:
-                        active_todos_content += f"  我需要完成的子任务:\n"
+                        active_todos_content += f"  待完成步骤:\n"
                         for subtask in pending_subtasks[:3]:  # 只显示前3个
                             active_todos_content += f"    - {subtask['content']}\n"
                         if len(pending_subtasks) > 3:
                             active_todos_content += f"    - ... 还有{len(pending_subtasks)-3}个\n"
             
-            active_todos_content += "\n这些是我的工作任务。我应该:\n"
-            active_todos_content += "- 主动汇报工作进展给主人\n"
-            active_todos_content += "- 遇到困难时寻求主人帮助\n"
-            active_todos_content += "- 完成后及时通知主人\n"
-            active_todos_content += "- 用我的TODO系统管理这些工作\n"
+            active_todos_content += "\n使用todo系统管理任务进度。\n"
             active_todos_content += "</my_current_tasks>"
         else:
             # 没有活跃任务
-            active_todos_content = "<my_current_tasks>\n我当前没有正在执行的工作任务。\n可以接受主人分配的新任务。\n</my_current_tasks>"
+            active_todos_content = "<my_current_tasks>\n当前无执行中的任务。\n</my_current_tasks>"
         
         # 替换或插入活跃任务内容
         if '<current_active_tasks>' in system_prompt or '<my_current_tasks>' in system_prompt:
